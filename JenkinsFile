@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'develop', url: 'https://github.com/Priyansh-commits-3005/devops-gitflow-demo.git'
+            }
+        }
+        stage('Install dependencies') {
+            steps {
+                bat 'python -m venv venv'
+                bat '.\\venv\\Scripts\\activate && pip install -r requirements.txt'
+            }
+        }
+        stage('Test') {
+            steps {
+                bat '.\\venv\\Scripts\\activate && pytest'
+            }
+        }
+    }
+}
